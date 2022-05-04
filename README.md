@@ -2,23 +2,6 @@
 
 ![comparsion](images/visualization.png)
 
-## paper to vise
-
-* [X] ST/STB 写法错误
-* [X] 解释为什么VIBE的model只选择了第一个
-* [X] 还应该解释它的局限性以及本文的方法如何优于郑的工作
-* [ ] Ziniu Wan/Lin的论文引用
-* [X] 对于损失项，将损失 L_(3d) 和 L_(3d_2) 命名为 L_(3d_STB) 和 L_(3d_SMPL) 似乎更直观。
-* [X] 解释为何ST branch 的效果很差这与前面的陈述相矛盾（前面的描述不对
-* [X] 图一左下角那个箭头改一下
-* [X] 如何计算损失函数 L_3d、L_2d、L_3d_2 和 L_smpl？
-* [X] 如何初始化和训练模型，即任何分支都使用预训练的权重？
-* [X] 在第 3.2 节中，论文提到了 SMPL 分支中的“简单变压器编码器”。报纸上说它有 4 个头，但除此之外别无他法。我想知道更多关于它的细节
-* [X] 第四节讨论模型局限性和改进
-* [X] 解释不用h36m的原因
-* [ ] 增加mpi-inf-3d关于pck的指标 (不一定需要)
-* [ ] 更多的可视化( 准备一个视频可视化出来即可，有时间可以补充上一些图)
-
 ## Features
 
 This implementation:
@@ -66,19 +49,19 @@ Please see [`doc/train.md`](doc/train.md) for details on how to prepare them.
 Here we compare VIBE with recent state-of-the-art methods on 3D pose estimation datasets. Evaluation metric is
 Procrustes Aligned Mean Per Joint Position Error (MPJPE) in mm.
 
-| Models    |  3DPW&#8595;  | MPI-INF-3DHP&#8595; | Human3.6m&#8595; |
-| --------- | :------------: | :-----------------: | ---------------- |
-| SPIN      |      96.9      |        105.2        |                  |
-| Pose2Mesh |      89.2      |          -          |                  |
-| VIBE      |      93.5      |        96.6        |                  |
-| Ours      | **85.7** |   **95.8**   |                  |
+| Models    |  3DPW&#8595;  | MPI-INF-3DHP&#8595; |
+| --------- | :------------: | :-----------------: |
+| SPIN      |      96.9      |        105.2        |
+| Pose2Mesh |      89.2      |          -          |
+| VIBE      |      93.5      |        96.6        |
+| Ours      | **85.7** |   **95.8**   |
 
-| Models    |  3DPW&#8595;  | MPI-INF-3DHP&#8595; | Human3.6m&#8595; |
-| --------- | :------------: | :-----------------: | ---------------- |
-| SPIN      |      59.2      |        67.5        | 41.1             |
-| Pose2Mesh |      58.3      |          -          | 46.3             |
-| VIBE      |      56.5      |   **63.4**   | 41.5             |
-| Ours      | **53.1** |         65         |                  |
+| Models    |  3DPW&#8595;  | MPI-INF-3DHP&#8595; |
+| --------- | :------------: | :-----------------: |
+| SPIN      |      59.2      |        67.5        |
+| Pose2Mesh |      58.3      |          -          |
+| VIBE      |      56.5      |   **63.4**   |
+| Ours      | **53.1** |         65         |
 
 See [`doc/eval.md`](doc/eval.md) to reproduce the results in this table or
 evaluate a pretrained model.
@@ -108,5 +91,5 @@ benefit:
 - Some functions are borrowed from [HMR-pytorch](https://github.com/MandyMo/pytorch_HMR).
 - Some functions are borrowed from [Kornia](https://github.com/kornia/kornia).
 - Pose tracker is from [STAF](https://github.com/soulslicer/openpose/tree/staf).
-- Spatial and Temporal transformer modules are set as
+- Spatial and Temporal transformer modules are set as [PoseFormer](https://github.com/zczcwh/PoseFormer)
 - Most code are borrowed from [VIBE](https://github.com/mkocabas/VIBE)
