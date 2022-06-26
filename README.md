@@ -70,15 +70,22 @@ evaluate a pretrained model.
 
 ![network](images/network1.png)
 
-<!-- ## Citation
+### checkpoints
 
-```bibtex
-
-``` -->
+| checkpoint  | Google Drive                                                                                    | Baidu Pan                                                      |
+| ----------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| GRU         | [Google Drive](https://drive.google.com/file/d/1WJb364ACIyvYVmwYdxcIomUZ2nrmPtYg/view?usp=sharing) | [Baidu](https://pan.baidu.com/s/1V3w75BCHIc-2jqLe_znTYA?pwd=2ca9) |
+| Transformer | TBD                                                                                             | TBD                                                            |
 
 ## License
 
 This code is available for **non-commercial scientific research purposes** as defined in the [LICENSE file](LICENSE). By downloading and using this code you agree to the terms in the [LICENSE](LICENSE). Third-party datasets and software are subject to their respective licenses.
+
+## Citation
+
+How to cite this article:
+
+> Wu Y, Wang C. Parallel-branch network for 3D human pose and shape estimation in video.  Comput Anim Virtual Worlds. 2022;e2078. https://doi.org/10.1002/cav.2078
 
 ## References
 
