@@ -76,7 +76,10 @@ evaluate a pretrained model.
 | ----------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | GRU         | [Google Drive](https://drive.google.com/file/d/1WJb364ACIyvYVmwYdxcIomUZ2nrmPtYg/view?usp=sharing) | [Baidu](https://pan.baidu.com/s/1V3w75BCHIc-2jqLe_znTYA?pwd=2ca9) |
 | Transformer | TBD                                                                                             | TBD                                                            |
-
+## ToDo
+- Parameters are too large, lightweight the model.
+- Try different backbones.
+- I found the GRU works as well as the transformer, so the sequences in the time axis can be optimized to fit the transformer archetiture.
 ## License
 
 This code is available for **non-commercial scientific research purposes** as defined in the [LICENSE file](LICENSE). By downloading and using this code you agree to the terms in the [LICENSE](LICENSE). Third-party datasets and software are subject to their respective licenses.
