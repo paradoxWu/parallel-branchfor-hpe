@@ -50,9 +50,9 @@ class Dataset3D(Dataset):
     def load_db(self):
         db_file = osp.join(VIBE_DB_DIR, f'{self.dataset_name}_{self.set}_db.pt')
         if self.dataset_name == 'h36m' and self.set=='train':
-            db_file = osp.join(VIBE_DB_DIR, 'h36m_train_25fps_occ_nosmpl_db.pt')
+            db_file = osp.join(VIBE_DB_DIR, 'h36m_train_25fps_nosmpl_db.pt')
         if self.dataset_name == 'h36m' and self.set=='test':
-            db_file = osp.join(VIBE_DB_DIR, 'h36m_test_front_25fps_tight_nosmpl_db.pt')
+            db_file = osp.join(VIBE_DB_DIR, 'h36m_test_25fps_nosmpl_db.pt')
         
         if self.dataset_name == '3dpw' and self.set=='train':
             db_file = osp.join(VIBE_DB_DIR, '3dpw_train_db.pt')

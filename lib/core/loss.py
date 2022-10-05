@@ -125,31 +125,32 @@ class VIBELoss(nn.Module):
         
         # motion_dis_loss = 0
         ## <======== Motion Discriminator Loss
-        end_idx = 75
-        start_idx = 6
-        pred_motion = total_predict_thetas
-        e_motion_disc_loss = self.enc_loss(motion_discriminator(pred_motion[:, :, start_idx:end_idx]))
-        e_motion_disc_loss = e_motion_disc_loss * self.d_motion_loss_weight
+        # end_idx = 75
+        # start_idx = 6
+        # pred_motion = total_predict_thetas
+        # e_motion_disc_loss = self.enc_loss(motion_discriminator(pred_motion[:, :, start_idx:end_idx]))
+        # e_motion_disc_loss = e_motion_disc_loss * self.d_motion_loss_weight
 
-        fake_motion = pred_motion.detach()
-        real_motion = data_motion_mosh['theta']
-        fake_disc_value = motion_discriminator(fake_motion[:, :, start_idx:end_idx])
-        real_disc_value = motion_discriminator(real_motion[:, :, start_idx:end_idx])
-        d_motion_disc_real, d_motion_disc_fake, d_motion_disc_loss = self.dec_loss(real_disc_value, fake_disc_value)
+        # fake_motion = pred_motion.detach()
+        # real_motion = data_motion_mosh['theta']
+        # fake_disc_value = motion_discriminator(fake_motion[:, :, start_idx:end_idx])
+        # real_disc_value = motion_discriminator(real_motion[:, :, start_idx:end_idx])
+        # d_motion_disc_real, d_motion_disc_fake, d_motion_disc_loss = self.dec_loss(real_disc_value, fake_disc_value)
 
-        d_motion_disc_real = d_motion_disc_real * self.d_motion_loss_weight
-        d_motion_disc_fake = d_motion_disc_fake * self.d_motion_loss_weight
-        d_motion_disc_loss = d_motion_disc_loss * self.d_motion_loss_weight
+        # d_motion_disc_real = d_motion_disc_real * self.d_motion_loss_weight
+        # d_motion_disc_fake = d_motion_disc_fake * self.d_motion_loss_weight
+        # d_motion_disc_loss = d_motion_disc_loss * self.d_motion_loss_weight
 
-        loss_dict['e_m_disc_loss'] = e_motion_disc_loss
-        loss_dict['d_m_disc_real'] = d_motion_disc_real
-        loss_dict['d_m_disc_fake'] = d_motion_disc_fake
-        loss_dict['d_m_disc_loss'] = d_motion_disc_loss
+        # loss_dict['e_m_disc_loss'] = e_motion_disc_loss
+        # loss_dict['d_m_disc_real'] = d_motion_disc_real
+        # loss_dict['d_m_disc_fake'] = d_motion_disc_fake
+        # loss_dict['d_m_disc_loss'] = d_motion_disc_loss
 
-        gen_loss = gen_loss + e_motion_disc_loss
-        motion_dis_loss = d_motion_disc_loss
+        # gen_loss = gen_loss + e_motion_disc_loss
+        # motion_dis_loss = d_motion_disc_loss
 
-        return gen_loss, motion_dis_loss, loss_dict
+        # return gen_loss, motion_dis_loss, loss_dict
+        return gen_loss, loss_dict
 
     def keypoint_loss(self, pred_keypoints_2d, gt_keypoints_2d, openpose_weight, gt_weight):
         """

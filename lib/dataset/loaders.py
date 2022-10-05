@@ -61,14 +61,14 @@ def get_data_loaders(cfg):
     )
 
     # ===== Motion Discriminator dataset =====
-    motion_disc_db = AMASS(seqlen=cfg.DATASET.SEQLEN)
+    # motion_disc_db = AMASS(seqlen=cfg.DATASET.SEQLEN)
 
-    motion_disc_loader = DataLoader(
-        dataset=motion_disc_db,
-        batch_size=cfg.TRAIN.BATCH_SIZE,
-        shuffle=True,
-        num_workers=cfg.NUM_WORKERS,
-    )
+    # motion_disc_loader = DataLoader(
+    #     dataset=motion_disc_db,
+    #     batch_size=cfg.TRAIN.BATCH_SIZE,
+    #     shuffle=True,
+    #     num_workers=cfg.NUM_WORKERS,
+    # )
 
     # ===== Evaluation dataset =====
     valid_db = eval(cfg.TRAIN.DATASET_EVAL)(set='test', seqlen=cfg.DATASET.SEQLEN, debug=cfg.DEBUG)
@@ -80,4 +80,5 @@ def get_data_loaders(cfg):
         num_workers=cfg.NUM_WORKERS,
     )
 
-    return train_2d_loader, train_3d_loader, motion_disc_loader, valid_loader
+    # return train_2d_loader, train_3d_loader, motion_disc_loader, valid_loader
+    return train_2d_loader, train_3d_loader, valid_loader

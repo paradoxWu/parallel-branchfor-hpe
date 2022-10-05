@@ -98,32 +98,32 @@ def main(cfg):
         momentum=cfg.TRAIN.GEN_MOMENTUM,
     )
 
-    motion_discriminator = MotionDiscriminator(
-        rnn_size=cfg.TRAIN.MOT_DISCR.HIDDEN_SIZE,
-        input_size=69,
-        num_layers=cfg.TRAIN.MOT_DISCR.NUM_LAYERS,
-        output_size=1,
-        feature_pool=cfg.TRAIN.MOT_DISCR.FEATURE_POOL,
-        attention_size=None if cfg.TRAIN.MOT_DISCR.FEATURE_POOL !='attention' else cfg.TRAIN.MOT_DISCR.ATT.SIZE,
-        attention_layers=None if cfg.TRAIN.MOT_DISCR.FEATURE_POOL !='attention' else cfg.TRAIN.MOT_DISCR.ATT.LAYERS,
-        attention_dropout=None if cfg.TRAIN.MOT_DISCR.FEATURE_POOL !='attention' else cfg.TRAIN.MOT_DISCR.ATT.DROPOUT
-    ).to(cfg.DEVICE)
+    # motion_discriminator = MotionDiscriminator(
+    #     rnn_size=cfg.TRAIN.MOT_DISCR.HIDDEN_SIZE,
+    #     input_size=69,
+    #     num_layers=cfg.TRAIN.MOT_DISCR.NUM_LAYERS,
+    #     output_size=1,
+    #     feature_pool=cfg.TRAIN.MOT_DISCR.FEATURE_POOL,
+    #     attention_size=None if cfg.TRAIN.MOT_DISCR.FEATURE_POOL !='attention' else cfg.TRAIN.MOT_DISCR.ATT.SIZE,
+    #     attention_layers=None if cfg.TRAIN.MOT_DISCR.FEATURE_POOL !='attention' else cfg.TRAIN.MOT_DISCR.ATT.LAYERS,
+    #     attention_dropout=None if cfg.TRAIN.MOT_DISCR.FEATURE_POOL !='attention' else cfg.TRAIN.MOT_DISCR.ATT.DROPOUT
+    # ).to(cfg.DEVICE)
 
-    dis_motion_optimizer = get_optimizer(
-        model=motion_discriminator,
-        optim_type=cfg.TRAIN.MOT_DISCR.OPTIM,
-        lr=cfg.TRAIN.MOT_DISCR.LR,
-        weight_decay=cfg.TRAIN.MOT_DISCR.WD,
-        momentum=cfg.TRAIN.MOT_DISCR.MOMENTUM
-    )
+    # dis_motion_optimizer = get_optimizer(
+    #     model=motion_discriminator,
+    #     optim_type=cfg.TRAIN.MOT_DISCR.OPTIM,
+    #     lr=cfg.TRAIN.MOT_DISCR.LR,
+    #     weight_decay=cfg.TRAIN.MOT_DISCR.WD,
+    #     momentum=cfg.TRAIN.MOT_DISCR.MOMENTUM
+    # )
 
-    motion_lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        dis_motion_optimizer,
-        mode='min',
-        factor=0.1,
-        patience=cfg.TRAIN.LR_PATIENCE,
-        verbose=True,
-    )
+    # motion_lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+    #     dis_motion_optimizer,
+    #     mode='min',
+    #     factor=0.1,
+    #     patience=cfg.TRAIN.LR_PATIENCE,
+    #     verbose=True,
+    # )
 
     lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         gen_optimizer,
@@ -137,9 +137,9 @@ def main(cfg):
     Trainer(
         data_loaders=data_loaders,
         generator=generator,
-        motion_discriminator=motion_discriminator,
+        # motion_discriminator=motion_discriminator,
         criterion=loss,
-        dis_motion_optimizer=dis_motion_optimizer,
+        # dis_motion_optimizer=dis_motion_optimizer,
         dis_motion_update_steps=cfg.TRAIN.MOT_DISCR.UPDATE_STEPS,
         gen_optimizer=gen_optimizer,
         start_epoch=cfg.TRAIN.START_EPOCH,
@@ -149,7 +149,7 @@ def main(cfg):
         debug=cfg.DEBUG,
         logdir=cfg.LOGDIR,
         lr_scheduler=lr_scheduler,
-        motion_lr_scheduler=motion_lr_scheduler,
+        # motion_lr_scheduler=motion_lr_scheduler,
         resume=cfg.TRAIN.RESUME,
         num_iters_per_epoch=cfg.TRAIN.NUM_ITERS_PER_EPOCH,
         debug_freq=cfg.DEBUG_FREQ,

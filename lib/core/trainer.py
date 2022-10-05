@@ -40,9 +40,9 @@ class Trainer():
             self,
             data_loaders,
             generator,
-            motion_discriminator,
+            # motion_discriminator,
             gen_optimizer,
-            dis_motion_optimizer,
+            # dis_motion_optimizer,
             dis_motion_update_steps,
             end_epoch,
             criterion,
@@ -60,9 +60,11 @@ class Trainer():
     ):
 
         # Prepare dataloaders
-        self.train_2d_loader, self.train_3d_loader, self.disc_motion_loader, self.valid_loader = data_loaders
+        # self.train_2d_loader, self.train_3d_loader, self.disc_motion_loader, self.valid_loader = data_loaders
+        self.train_2d_loader, self.train_3d_loader, self.valid_loader = data_loaders
 
-        self.disc_motion_iter = iter(self.disc_motion_loader)
+
+        # self.disc_motion_iter = iter(self.disc_motion_loader)
 
         self.train_2d_iter = self.train_3d_iter = None
 
@@ -76,8 +78,8 @@ class Trainer():
         self.generator = generator
         self.gen_optimizer = gen_optimizer
 
-        self.motion_discriminator = motion_discriminator
-        self.dis_motion_optimizer = dis_motion_optimizer
+        # self.motion_discriminator = motion_discriminator
+        # self.dis_motion_optimizer = dis_motion_optimizer
 
         # Training parameters
         self.start_epoch = start_epoch
@@ -128,7 +130,7 @@ class Trainer():
         }
 
         self.generator.train()
-        self.motion_discriminator.train()
+        # self.motion_discriminator.train()
 
         start = time.time()
 
@@ -160,13 +162,13 @@ class Trainer():
             real_body_samples = real_motion_samples = None
             
             ## NO NEED if there is no discriminator
-            try:
-                real_motion_samples = next(self.disc_motion_iter)
-            except StopIteration:
-                self.disc_motion_iter = iter(self.disc_motion_loader)
-                real_motion_samples = next(self.disc_motion_iter)
+            # try:
+            #     real_motion_samples = next(self.disc_motion_iter)
+            # except StopIteration:
+            #     self.disc_motion_iter = iter(self.disc_motion_loader)
+            #     real_motion_samples = next(self.disc_motion_iter)
 
-            move_dict_to_device(real_motion_samples, self.device)
+            # move_dict_to_device(real_motion_samples, self.device)
 
             # <======= Feedforward generator and discriminator
             if target_2d and target_3d:
@@ -186,14 +188,15 @@ class Trainer():
 
             timer['forward'] = time.time() - start
             start = time.time()
-
-            gen_loss, motion_dis_loss, loss_dict = self.criterion(
+            
+            # gen_loss, motion_dis_loss, loss_dict
+            gen_loss, loss_dict= self.criterion(
                 generator_outputs=preds,
                 data_2d=target_2d,
                 data_3d=target_3d,
                 data_body_mosh=real_body_samples,
                 data_motion_mosh=real_motion_samples,
-                motion_discriminator=self.motion_discriminator,
+                # motion_discriminator=self.motion_discriminator,
             )
             # =======>
 
@@ -334,9 +337,9 @@ class Trainer():
                 print(f'Learning rate {param_group["lr"]}')
                 self.writer.add_scalar('lr/gen_lr', param_group['lr'], global_step=self.epoch)
 
-            for param_group in self.dis_motion_optimizer.param_groups:
-                print(f'Learning rate {param_group["lr"]}')
-                self.writer.add_scalar('lr/dis_lr', param_group['lr'], global_step=self.epoch)
+            # for param_group in self.dis_motion_optimizer.param_groups:
+            #     print(f'Learning rate {param_group["lr"]}')
+            #     self.writer.add_scalar('lr/dis_lr', param_group['lr'], global_step=self.epoch)
 
             logger.info(f'Epoch {epoch+1} performance: {performance:.4f}')
 
@@ -353,8 +356,8 @@ class Trainer():
             'gen_state_dict': self.generator.state_dict(),
             'performance': performance,
             'gen_optimizer': self.gen_optimizer.state_dict(),
-            'disc_motion_state_dict': self.motion_discriminator.state_dict(),
-            'disc_motion_optimizer': self.dis_motion_optimizer.state_dict(),
+            # 'disc_motion_state_dict': self.motion_discriminator.state_dict(),
+            # 'disc_motion_optimizer': self.dis_motion_optimizer.state_dict(),
         }
 
         filename = osp.join(self.logdir, 'checkpoint.pth.tar')
@@ -381,9 +384,9 @@ class Trainer():
             self.gen_optimizer.load_state_dict(checkpoint['gen_optimizer'])
             self.best_performance = checkpoint['performance']
 
-            if 'disc_motion_optimizer' in checkpoint.keys():
-                self.motion_discriminator.load_state_dict(checkpoint['disc_motion_state_dict'])
-                self.dis_motion_optimizer.load_state_dict(checkpoint['disc_motion_optimizer'])
+            # if 'disc_motion_optimizer' in checkpoint.keys():
+            #     self.motion_discriminator.load_state_dict(checkpoint['disc_motion_state_dict'])
+            #     self.dis_motion_optimizer.load_state_dict(checkpoint['disc_motion_optimizer'])
 
             logger.info(f"=> loaded checkpoint '{model_path}' "
                   f"(epoch {self.start_epoch}, performance {self.best_performance})")

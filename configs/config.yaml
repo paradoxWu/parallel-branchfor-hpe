@@ -3,8 +3,8 @@ DEBUG_FREQ: 5
 LOGDIR: ''
 DEVICE: 'cuda'
 EXP_NAME: 'vibe'
-OUTPUT_DIR: 'results/vibe_tests'
-NUM_WORKERS: 0
+OUTPUT_DIR: 'results/'
+NUM_WORKERS: 8
 SEED_VALUE: -1
 DATASET:
   SEQLEN: 16
@@ -15,13 +15,13 @@ LOSS:
   POSE_W: 60.0
   D_MOTION_LOSS_W: 0.5
 TRAIN:
-  BATCH_SIZE: 16
+  BATCH_SIZE: 128
   NUM_ITERS_PER_EPOCH: 500
   PRETRAINED: ''
   PRETRAINED_REGRESSOR: 'data/vibe_data/spin_model_checkpoint.pth.tar'
   RESUME: '' 
   START_EPOCH: 0
-  END_EPOCH: 15
+  END_EPOCH: 20
   LR_PATIENCE: 5
   DATA_2D_RATIO: 0.6
   DATASETS_2D:
